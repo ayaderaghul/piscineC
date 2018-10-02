@@ -9,11 +9,16 @@ void ft_print_comb2(void)
 
   while (i <= 9)
     {
+      j = 0;
       while (j <= 8)
 	{
+	  k = i;
 	  while (k <= 9)
 	    {
-	      l = k + 1;
+	      if (i == k)
+		l = j + 1;
+	      else
+		l = 0;
 	      while (l <= 9)
 		{
 		  ft_putchar(i+'0');
@@ -21,8 +26,11 @@ void ft_print_comb2(void)
 		  ft_putchar(' ');
 		  ft_putchar(k+'0');
 		  ft_putchar(l+'0');
-		  ft_putchar(',');
-		  ft_putchar(' ');
+		  if (!(i == 9 && j == 8 && k == 9 && l == 9))
+		    {
+		      ft_putchar(',');
+		      ft_putchar(' ');
+		    }
 		  ++l;
 		}
 	      ++k;
