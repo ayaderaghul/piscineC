@@ -1,0 +1,94 @@
+void init(int *array, int size)
+{
+  int i = 0;
+  int j = 0;
+  while (i < size)
+    {
+      while (j < size)
+	array[i][j++] = -1;
+      ++i;
+    }
+}
+
+void available_spot(int *board, int *spot)
+{
+  int i = 0;
+  int j = 0;
+  
+  while (i < 64)
+    {
+      if (board[i] == -1)
+	spot[j++] = i;
+      i++;
+    }
+}
+
+int avail(int *spot)
+{
+  if (spot[0] != -1)
+    return 1;
+}
+
+void put_one(int *array, int size, int posn)
+{
+  int x = posn / size;
+  int y = posn % size;
+  int i = 0;
+  int j = 0;
+  while (j < size)
+    array[x * 8 + j++] = 1;
+  while (i < size)
+    array[i++ * 8 + y] = 1;
+  i = x;
+  j = y;
+  while (i < size && j < size)
+    array[i++ * 8 + j++] = 1;
+  i = x;
+  j = y;
+  while (i >= 0 && j >= 0)
+    array[i-- * 8 + j--] = 1;
+  i = x;
+  j = y;
+  while (i < size && j >= 0)
+    array[i++ * 8 + j--] = 1;
+  i = x;
+  j = y;
+  while (i >= 0 && j < size)
+    array[i-- * 8 + j++] = 1;
+}
+
+int ft_eight_queens_puzzle(void)
+{
+  int *board[64];
+  init(board, 64);
+  int *spots[8][64];
+  int i = 0;
+  while (i < 8)
+    init(spots[i++], 64);
+  
+  int q = 0;
+  int b = 0;
+  int f = 0;
+  while (f < 64)
+    {
+      while (0 <= q <= 8)
+	{
+	  available_spot(board, spots[q]);
+	  if (!(avail(spots[q])))
+	    {
+	      b++;
+	      --q;
+	    }
+	  s = spots[q][b];
+	  put_one(board, s);
+	  ++q;
+	}
+
+      int c = 0;
+      if (q == 8)
+	++c;
+      if (q == 0)
+	++f;
+    }
+  return c;
+}
